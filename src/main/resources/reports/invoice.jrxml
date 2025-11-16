@@ -24,13 +24,12 @@
     <parameter name="TAX_AMOUNT" class="java.lang.Double"/>
     <parameter name="DISCOUNT_AMOUNT" class="java.lang.Double"/>
     <parameter name="TOTAL_AMOUNT" class="java.lang.Double"/>
-    <parameter name="itemsDataSource" class="net.sf.jasperreports.engine.JRDataSource"/>
 
     <queryString>
         <![CDATA[]]>
     </queryString>
 
-    <!-- Fields for the data source -->
+    <!-- Fields for the data source - these must match the Map keys in createDataSource -->
     <field name="productName" class="java.lang.String"/>
     <field name="quantity" class="java.lang.Integer"/>
     <field name="price" class="java.lang.Double"/>
@@ -165,6 +164,7 @@
                 <textElement verticalAlignment="Middle">
                     <font size="9"/>
                 </textElement>
+                <!-- CORRECTED: Direct field reference -->
                 <textFieldExpression><![CDATA[$F{productName}]]></textFieldExpression>
             </textField>
             <textField>
@@ -172,6 +172,7 @@
                 <textElement textAlignment="Center" verticalAlignment="Middle">
                     <font size="9"/>
                 </textElement>
+                <!-- CORRECTED: Direct field reference -->
                 <textFieldExpression><![CDATA[$F{quantity}]]></textFieldExpression>
             </textField>
             <textField>
@@ -179,6 +180,7 @@
                 <textElement textAlignment="Right" verticalAlignment="Middle">
                     <font size="9"/>
                 </textElement>
+                <!-- CORRECTED: Direct field reference -->
                 <textFieldExpression><![CDATA["$" + $F{price}]]></textFieldExpression>
             </textField>
             <textField>
@@ -186,6 +188,7 @@
                 <textElement textAlignment="Right" verticalAlignment="Middle">
                     <font size="9"/>
                 </textElement>
+                <!-- CORRECTED: Direct field reference -->
                 <textFieldExpression><![CDATA["$" + $F{total}]]></textFieldExpression>
             </textField>
         </band>
@@ -250,7 +253,7 @@
                 <textElement textAlignment="Right">
                     <font size="10"/>
                 </textElement>
-                <textFieldExpression><![CDATA["-$" + $P{DISCOUNT_AMOUNT}]]></textFieldExpression>
+                <textFieldExpression><![CDATA[$P{DISCOUNT_AMOUNT} > 0 ? ("-$" + $P{DISCOUNT_AMOUNT}) : "$0.00"]]></textFieldExpression>
             </textField>
 
             <line>
